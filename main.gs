@@ -19,10 +19,10 @@ function getUpdates(){
 //スプシからデータを取得してTG部屋に送る
 function fromGoogleFormToTelegram(){
   var sheet = SpreadsheetApp.getActiveSheet(); //シートを指定する
-  var row = sheet.getLastRow(); //行数
-  var column = 3 //スプシC列目
-  var range = sheet.getDataRange(); //シートにデータが入ってる範囲を指定する
-  var value = range.getCell(row, column).getValue(); //最終行C列目の値を取る
+  var row = sheet.getLastRow(); //シート行数
+  var column = 3 //シートC列目
+  var range = sheet.getDataRange(); //シートにデータが入っている範囲を指定する
+  var value = range.getCell(row, column).getValue(); //シート最終行C列目の値を取る
   var message = "";
   message += value;
   Logger.log(message);
