@@ -1,32 +1,21 @@
-var token = "XXXXXXXXXX:YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+var token = "XXXXXXXXXX:YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY" //Botのトークン
 var telegramUrl = "https://api.telegram.org/bot" + token;
+
 var chatId = "ZZZZZZZZZZZZZZZ"; //チャットのID　
+var spredSheetId = "00000000000000000000000000000000000000000000" //レスポンスのスプレッドシート
 
 
-function getMe(){
-  var url = telegramUrl+"/getMe";
-  var response = UrlFetchApp.fetch(url);
-  Logger.log(response.getContentText());
-}
-
-
-function getUpdates(){
-  var url = telegramUrl+"/getUpdates";
-  var response = UrlFetchApp.fetch(url);
-  Logger.log(response.getContentText());
-}
-
-//スプシからデータを取得してTG部屋に送る
+//スプレッドシートからデータを取得してチャットに送る
 function fromGoogleFormToTelegram(){
-  var sheet = SpreadsheetApp.getActiveSheet(); //シートを指定する
-  var row = sheet.getLastRow(); //シート行数
+  var activeSpreadsheet = SpreadsheetApp.openById(spredSheetId); //レスポンスのスプレッドシートを取得
+  var activeSheet = activeSpreadsheet.getSheets()[0]; //アクティブシートを取得
+  var row = activeSheet.getLastRow(); //行数を取得
   var column = 3 //シートC列目
-  var range = sheet.getDataRange(); //シートにデータが入っている範囲を指定する
-  var value = range.getCell(row, column).getValue(); //シート最終行C列目の値を取る
-  var message = "";
+  var range = activeSheet.getDataRange(); //シートにデータが入っている範囲を取得
+  var value = range.getCell(row, column).getValue(); //シート最終行C列目の値を取得
+  var message = ""; 
   message += value;
-  Logger.log(message);
-  sendToTelegram(chatId, '@' + message + ' さんが参加希望でフォームを記入されました！', token);
+  sendToTelegram(chatId, '@' + message + ' さんがフォームを送信しました！', token);
   Logger.log(message);
 }
 
