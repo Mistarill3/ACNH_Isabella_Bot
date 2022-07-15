@@ -7,9 +7,9 @@ var telegramUrl = "https://api.telegram.org/bot" + token;
 //Installable Trigger; FormTriggerBilder
 //トリガーをセットするときに実行
 function createFormSubmitTrigger() { 
-  var formId = PropertiesService.getScriptProperties().getProperty("formId"); //トリガー対象のフォームを指定
+  var formId = PropertiesService.getScriptProperties().getProperty("formId");
   ScriptApp.newTrigger('fromGoogleFormToTelegram')
-      .forForm(formId)
+      .forForm(formId) //トリガー対象のフォームを指定
       .onFormSubmit()
       .create();
 }
